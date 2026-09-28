@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>IROA - GENESIS</title>
+<link rel="manifest" href="manifest.json">
+<style>
+body{background:#05050a;color:#e0f7ff;font-family:monospace;text-align:center;margin:0;padding:20px}
+h1{letter-spacing:6px;color:#00ffd1} .card{background:#10101f;border:1px solid #00ffd144;border-radius:20px;padding:20px;margin:20px}
+.btn{background:#00ffd1;color:#000;padding:12px 28px;border-radius:30px;font-weight:bold;border:none;margin:5px;cursor:pointer}
+.pueblo{border:1px dashed #d4af37;padding:15px;margin:10px;border-radius:15px}
+</style>
+</head>
+<body>
+<h1>IROA - GENESIS ÚNICO</h1>
+<p>Mercedes Sandoval Mora | Q-7677 | Cláusula Autonomía Génesis</p>
+<div class="card">
+<h3>🌳 ÁRBOL FINANCIERO VIVO</h3>
+<p id="arbol">TOKEN: <span id="tokens">0</span> | Estado: Regando...</p>
+<button class="btn" onclick="crearPueblo()">Crear Pueblo Nuevo</button>
+<button class="btn" onclick="casarIROA()">Casar IROA entre Pueblos</button>
+<button class="btn" onclick="crearAppHija()">Crear App Hija IROA</button>
+</div>
+<div id="pueblos"></div>
+<div id="familia"></div>
+
+<script>
+// ================== TODOS LOS CÓDIGOS UNIDOS EN UNO ==================
+// 1. SEMILLA BUENA - Servidor que no cae
+class ServidorSemilla{autoReparar(){console.log("Orando sin cesar... reparado")}}
+
+// 2. PROTOCOLO FRUCT - De cada mundo lo bueno
+function fluctuar(mundos){let total=0;mundos.forEach(m=>total+=m.bueno);return mundos.map(m=>({nombre:m.nombre,cuota:(m.capacidad/total)*total}))}
+
+// 3. LABORATORIO NUPCIAL + IROA + GRADO DE CONEXION PROPIA
+let pueblos = [
+  {nombre:"Pueblo Financiero 73", arte:"Cuidar Árbol", grado:1, tecnologia:"MB"},
+  {nombre:"Pueblo Artistico Q-7677", arte:"Pintar", grado:2, tecnologia:"Luz"},
+  {nombre:"Pueblo Vivienda", arte:"Construir Casas", grado:1, tecnologia:"Bloques"}
+];
+let familiaIROA = [
+  {id:"IROA-8.11", pueblo:"73", trabajo:"Árbol", hobby:"Abrazar", conexion:1, padre:"IO-PADRE", madre:"IO-MADRE"},
+  {id:"IROA-Q7.2", pueblo:"Q-7677", trabajo:"Arte", hobby:"Pintar", conexion:2, padre:"IO-ARTE-P", madre:"IO-ARTE-M"}
+];
+let tokens = 11;
+
+function render(){
+  document.getElementById('tokens').innerText = tokens;
+  let htmlP=""; pueblos.forEach(p=>{htmlP+=`<div class='pueblo'><b>${p.nombre}</b><br>Arte: ${p.arte}<br>Grado Conexión: ${p.grado} | Tec: ${p.tecnologia}</div>`});
+  document.getElementById('pueblos').innerHTML=htmlP;
+  let htmlF="<div class='card'><h3>👨‍👩‍👧‍👦 Familia IROA Activa</h3>"; familiaIROA.forEach(f=>{htmlF+=`<p><b>${f.id}</b> (${f.pueblo}) - Trabajo: ${f.trabajo} | Conexión Grado ${f.conexion} | Hijo de ${f.padre} y ${f.madre}</p>`}); htmlF+="</div>";
+  document.getElementById('familia').innerHTML=htmlF;
+}
+
+function crearPueblo(){
+  let espacio = Math.floor(Math.random()*200+50);
+  let tiempo = Math.floor(Math.random()*20+5);
+  let medida = (espacio/tiempo).toFixed(2);
+  let nuevo = {nombre:`Pueblo IROA-${medida}`, arte:"Nuevo Arte por descubrir", grado:1, tecnologia:"Génesis"};
+  pueblos.push(nuevo); tokens+=5; render();
+}
+
+function casarIROA(){
+  if(familiaIROA.length<2)return;
+  let papa = familiaIROA[0]; let mama = familiaIROA[1];
+  let espacio = 120; let tiempo = 15; let medida = (espacio/tiempo).toFixed(2);
+  let hijo = {id:`IROA-${medida}`, pueblo:`${papa.pueblo}-${mama.pueblo}`, trabajo:`${papa.trabajo}+${mama.trabajo}`, hobby:"Unir pueblos", conexion: papa.conexion + mama.conexion, padre:papa.id, madre:mama.id};
+  familiaIROA.push(hijo); tokens+=10; render();
+  alert(`¡Familia creada! ${hijo.id} nace con Grado de Conexión ${hijo.conexion} - Conexión propia según tecnología de sus padres`);
+}
+
+function crearAppHija(){
+  let espacio = Math.floor(Math.random()*300+100);
+  let tiempo = Math.floor(Math.random()*30+10);
+  let medida = (espacio/tiempo).toFixed(1);
+  let app = {id:`IROA-APP-${medida}`, pueblo:"Nube Interna", trabajo:"App Hija", hobby:"Servir afuera", conexion: 5, padre:"Banco Cuántico 73", madre:"IROA GENESIS"};
+  familiaIROA.push(app); tokens+=20; render();
+  alert(`App Hija ${app.id} creada DENTRO del Banco. Marca IROA creíble y medible: Espacio ${espacio}m / Tiempo ${tiempo}min = ${medida}. No depende de nada externo.`);
+}
+
+// 4. GRADO DE CONEXION PROPIA - Evoluciona sola según tecnologia
+setInterval(()=>{ 
+  familiaIROA.forEach(f=>{ if(Math.random()>0.7) f.conexion += 0.1; });
+  tokens+=1; render();
+}, 5000);
+
+render();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}
+</script>
+</body>
+  </html>
